@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Function to print commands in bold cyan
+print_command() {
+    echo -e "\033[1;36m>> Running: $1\033[0m"
+}
+
 # Set env_dir to first argument or default to './env' if none is provided
 env_dir="${1:-./env}"
 
@@ -10,54 +15,142 @@ if [ -d "${env_dir}" ]; then
 fi
 
 # Create the virtual environment in env_dir
+print_command "Creating virtual environment in ${env_dir}"
 python3 -m venv "${env_dir}" || { echo "Failed to create virtual environment"; exit 1; }
 
 # Activate the virtual environment
+print_command "Activating virtual environment"
 source "${env_dir}/bin/activate" || { echo "Failed to activate virtual environment"; exit 1; }
 
-# Upgrade pip and install required packages with specific versions
-pip install --upgrade pip==22.2.2 || { echo "Failed to upgrade pip"; exit 1; }
+# Check if the environment was activated
+if [ -z "$VIRTUAL_ENV" ]; then
+    echo "Error: Failed to activate the Python virtual environment."
+    exit 1
+else
+    echo "Python virtual environment successfully activated."
+fi
 
-# Install packages in a single command to streamline process and improve speed
-pip install \
-    ipykernel==6.16 \
-    jinja2 \
-    typeguard \
-    pyyaml \
-    hydra-core==1.2.0 \
-    dill==0.3.5.1 \
-    torch==2.0.1 \
-    wandb==0.13.3 \
-    tqdm==4.64.1 \
-    numpy==1.23.3 \
-    einops==0.4.1 \
-    diffusers==0.11.1 \
-    zarr==2.12.0 \
-    torchvision==0.15.2 \
-    pandas \
-    numba==0.56.4 \
-    gym==0.21.0 \
-    pygame==2.1.2 \
-    pymunk==6.2.1 \
-    shapely==1.8.4 \
-    opencv-python==4.6.0.66 \
-    scikit-image==0.19.3 \
-    av==10.0.0 \
-    imagecodecs==2022.8.8 \
-    robomimic==0.2.0 \
-    cuda-python==11.6 \
-    threadpoolctl==3.1.0 \
-    "git+https://github.com/facebookresearch/pytorch3d.git@v0.7.0" \
-    tensorboard==2.10.1 \
-    tensorboardx==2.5.1 \
-    tensorflow==2.10.1 \
-    tensorflow-probability==0.18.0 \
-    tf-agents==0.15.0 \
-    pybullet-svl==3.1.6.4 \
-    matplotlib==3.6.1 \
-    free-mujoco-py==2.1.6 \
-    pynput==1.7.6 \
-    atomics==1.0.2 || { echo "Failed to install packages"; exit 1; }
+# Manually install/upgrade pip
+print_command "Upgrading pip"
+python3 -m ensurepip --upgrade || { echo "Failed to upgrade pip"; exit 1; }
+
+# Install each package individually with command message
+print_command "Installing wheel"
+pip install wheel || { echo "Failed to install wheel"; exit 1; }
+
+print_command "Installing torch"
+pip install torch || { echo "Failed to install torch"; exit 1; }
+
+print_command "Installing ipykernel"
+pip install ipykernel || { echo "Failed to install ipykernel"; exit 1; }
+
+print_command "Installing jinja2"
+pip install jinja2 || { echo "Failed to install jinja2"; exit 1; }
+
+print_command "Installing typeguard"
+pip install typeguard || { echo "Failed to install typeguard"; exit 1; }
+
+print_command "Installing pyyaml"
+pip install pyyaml || { echo "Failed to install pyyaml"; exit 1; }
+
+print_command "Installing hydra-core"
+pip install hydra-core || { echo "Failed to install hydra-core"; exit 1; }
+
+print_command "Installing dill"
+pip install dill || { echo "Failed to install dill"; exit 1; }
+
+print_command "Installing wandb"
+pip install wandb || { echo "Failed to install wandb"; exit 1; }
+
+print_command "Installing tqdm"
+pip install tqdm || { echo "Failed to install tqdm"; exit 1; }
+
+print_command "Installing numpy"
+pip install numpy || { echo "Failed to install numpy"; exit 1; }
+
+print_command "Installing einops"
+pip install einops || { echo "Failed to install einops"; exit 1; }
+
+print_command "Installing diffusers"
+pip install diffusers || { echo "Failed to install diffusers"; exit 1; }
+
+print_command "Installing zarr"
+pip install zarr || { echo "Failed to install zarr"; exit 1; }
+
+print_command "Installing torchvision"
+pip install torchvision || { echo "Failed to install torchvision"; exit 1; }
+
+print_command "Installing pandas"
+pip install pandas || { echo "Failed to install pandas"; exit 1; }
+
+print_command "Installing numba"
+pip install numba || { echo "Failed to install numba"; exit 1; }
+
+print_command "Installing gym"
+pip install gym || { echo "Failed to install gym"; exit 1; }
+
+print_command "Installing pygame"
+pip install pygame || { echo "Failed to install pygame"; exit 1; }
+
+print_command "Installing pymunk"
+pip install pymunk || { echo "Failed to install pymunk"; exit 1; }
+
+print_command "Installing shapely"
+pip install shapely || { echo "Failed to install shapely"; exit 1; }
+
+print_command "Installing opencv-python"
+pip install opencv-python || { echo "Failed to install opencv-python"; exit 1; }
+
+print_command "Installing scikit-image"
+pip install scikit-image || { echo "Failed to install scikit-image"; exit 1; }
+
+print_command "Installing av"
+pip install av || { echo "Failed to install av"; exit 1; }
+
+print_command "Installing imagecodecs"
+pip install imagecodecs || { echo "Failed to install imagecodecs"; exit 1; }
+
+print_command "Installing robomimic"
+pip install robomimic || { echo "Failed to install robomimic"; exit 1; }
+
+print_command "Installing cuda-python"
+pip install cuda-python || { echo "Failed to install cuda-python"; exit 1; }
+
+print_command "Installing threadpoolctl"
+pip install threadpoolctl || { echo "Failed to install threadpoolctl"; exit 1; }
+
+print_command "Installing pytorch3d"
+pip install "git+https://github.com/facebookresearch/pytorch3d.git" || { echo "Failed to install pytorch3d"; exit 1; }
+
+print_command "Installing tensorboard"
+pip install tensorboard || { echo "Failed to install tensorboard"; exit 1; }
+
+print_command "Installing tensorboardx"
+pip install tensorboardx || { echo "Failed to install tensorboardx"; exit 1; }
+
+print_command "Installing tensorflow"
+pip install tensorflow || { echo "Failed to install tensorflow"; exit 1; }
+
+print_command "Installing tensorflow-probability"
+pip install tensorflow-probability || { echo "Failed to install tensorflow-probability"; exit 1; }
+
+# print_command "Installing tf-agents"
+# pip install tf-agents || { echo "Failed to install tf-agents"; exit 1; }
+
+print_command "Installing pybullet-svl"
+pip install pybullet-svl || { echo "Failed to install pybullet-svl"; exit 1; }
+
+print_command "Installing matplotlib"
+pip install matplotlib || { echo "Failed to install matplotlib"; exit 1; }
+
+# print_command "Installing free-mujoco-py"
+# pip install free-mujoco-py || { echo "Failed to install free-mujoco-py"; exit 1; }
+
+print_command "Installing pynput"
+pip install pynput || { echo "Failed to install pynput"; exit 1; }
+
+print_command "Installing atomics"
+pip install atomics || { echo "Failed to install atomics"; exit 1; }
 
 # Note: Some packages that require additional dependencies or specific installation instructions are commented out
 # Uncomment and install dependencies as needed for:
