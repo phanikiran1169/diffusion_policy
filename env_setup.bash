@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Check for Python 3.10
+required_version="3.10"
+python_version=$(python3 --version 2>&1 | awk '{print $2}')
+if [[ "${python_version}" != "${required_version}"* ]]; then
+    echo "Error: Python ${required_version} is required. Detected version: ${python_version}"
+    exit 1
+fi
+
 # Function to print commands in bold cyan
 print_command() {
     echo -e "\033[1;36m>> Running: $1\033[0m"
@@ -32,7 +40,7 @@ fi
 
 # Manually install/upgrade pip
 print_command "Upgrading pip"
-python3 -m ensurepip --upgrade || { echo "Failed to upgrade pip"; exit 1; }
+python3 install --upgrade pip || { echo "Failed to upgrade pip"; exit 1; }
 
 # Install each package individually with command message
 print_command "Installing wheel"
