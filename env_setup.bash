@@ -95,7 +95,7 @@ print_command "Installing pandas"
 pip install pandas || { echo "Failed to install pandas"; exit 1; }
 
 print_command "Installing numba"
-pip install numba==0.56.4 || { echo "Failed to install numba"; exit 1; }
+pip install numba==0.60.0 || { echo "Failed to install numba"; exit 1; }
 
 print_command "Installing gym"
 pip install gym==0.21.0 || { echo "Failed to install gym"; exit 1; }
